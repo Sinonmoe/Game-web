@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://dcxls3cxp2bmm"]
+
+[ext_resource type="Texture2D" uid="uid://c3n4fy3t6nndo" path="res://assets/sprites/slime_green.png" id="1_5ups2"]
+[ext_resource type="Script" path="res://slime.gd" id="1_j5h3s"]
+[ext_resource type="PackedScene" uid="uid://c0avdi05nfmdw" path="res://scences/killzone.tscn" id="2_lj7pb"]
+[ext_resource type="Script" path="res://scripts/animated_sprite_2d.gd" id="4_i3q7v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nke15"]
+size = Vector2(27, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihu8x"]
+atlas = ExtResource("1_5ups2")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ggw3"]
+atlas = ExtResource("1_5ups2")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1fj5"]
+atlas = ExtResource("1_5ups2")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro0wu"]
+atlas = ExtResource("1_5ups2")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_neudw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihu8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ggw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1fj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro0wu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_j5h3s")
+
+[node name="killzone" parent="." instance=ExtResource("2_lj7pb")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(-0.5, 11)
+shape = SubResource("RectangleShape2D_nke15")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(46, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+rotation = 1.57054
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 2)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_neudw")
+script = ExtResource("4_i3q7v")
